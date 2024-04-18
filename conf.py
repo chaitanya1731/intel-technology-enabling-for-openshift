@@ -25,7 +25,42 @@ author = 'Intel® Corporation'
 # The short X.Y version
 # version = 'devel'
 # The full version, including alpha/beta/rc tags
-release = 'GA'
+# release = 'GA'
+
+
+# -------------- Upstream -------------------
+from os import getenv
+
+baseBranch = "main"
+sphinx_md_useGitHubURL = True
+commitSHA = getenv('GITHUB_SHA')
+githubBaseURL = 'https://github.com/' + (getenv('GITHUB_REPOSITORY') or 'intel/intel-technology-enabling-for-openshift') + '/'
+githubFileURL = githubBaseURL + "blob/"
+githubDirURL = githubBaseURL + "tree/"
+if commitSHA:
+    githubFileURL = githubFileURL + commitSHA + "/"
+    githubDirURL = githubDirURL + commitSHA + "/"
+else:
+    githubFileURL = githubFileURL + baseBranch + "/"
+    githubDirURL = githubDirURL + baseBranch + "/"
+sphinx_md_githubFileURL = githubFileURL
+sphinx_md_githubDirURL = githubDirURL
+
+# Version displayed in the upper left corner of the site
+ref = getenv('GITHUB_REF', default="")
+print("ref = ", getenv('GITHUB_REF'))
+if ref == "refs/heads/main":
+    version = "main"
+elif ref.startswith("refs/tags/"):
+    version = ref[len("refs/tags/"):]
+else:
+    version = getenv("BUILD_VERSION", default="unknown")
+
+print("version=", version)
+release = getenv("BUILD_VERSION", default="unknown")
+print("release=", release)
+
+
 
 # Versions to show in the version menu
 
@@ -108,20 +143,3 @@ html_static_path = ['_static']
 htmlhelp_basename = 'IntelTechnologyEnablingforOpenShiftdoc'
 
 
-# -------------- Upstream -------------------
-from os import getenv
-
-baseBranch = "main"
-sphinx_md_useGitHubURL = True
-commitSHA = getenv('GITHUB_SHA')
-githubBaseURL = 'https://github.com/' + (getenv('GITHUB_REPOSITORY') or 'intel/intel-technology-enabling-for-openshift') + '/'
-githubFileURL = githubBaseURL + "blob/"
-githubDirURL = githubBaseURL + "tree/"
-if commitSHA:
-    githubFileURL = githubFileURL + commitSHA + "/"
-    githubDirURL = githubDirURL + commitSHA + "/"
-else:
-    githubFileURL = githubFileURL + baseBranch + "/"
-    githubDirURL = githubDirURL + baseBranch + "/"
-sphinx_md_githubFileURL = githubFileURL
-sphinx_md_githubDirURL = githubDirURL
