@@ -30,7 +30,7 @@ jobs:
         export GITHUB_SHA
         rm -rf _work/venv
         make vhtml
-        mv build/html/* $HOME/output/
+        mv _build/html/* $HOME/output/
     - name: Deploy the docs
       shell: bash
       env:
