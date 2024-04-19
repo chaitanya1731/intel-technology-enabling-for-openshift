@@ -48,16 +48,22 @@ sphinx_md_githubDirURL = githubDirURL
 
 # Version displayed in the upper left corner of the site
 ref = getenv('GITHUB_REF', default="")
+print("ref = ", ref)
 if ref == "refs/heads/main":
     version = "main"
 elif ref.startswith("refs/heads/release-"):
     # For release branches just show the latest tag name
     buildVersion = getenv("BUILD_VERSION", default="unknown")
+    print("env var = ", getenv("BUILD_VERSION"))
+    print("buildVersion = ", buildVersion)
     version = buildVersion.split('-')[0]
+    print("version = this is for branch = ", version)
 elif ref.startswith("refs/tags/"):
     version = ref[len("refs/tags/"):]
 else:
     version = getenv("BUILD_VERSION", default="unknown")
+
+print("version = after else = ", version)
 release = getenv("BUILD_VERSION", default="unknown")
 
 # ---------------------------------
