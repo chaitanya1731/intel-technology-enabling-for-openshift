@@ -30,6 +30,7 @@ jobs:
       run: |
         GITHUB_SHA=$(git rev-parse HEAD)
         export GITHUB_SHA
+        export CURRENT_VERSION=main
         rm -rf _work/venv
         make vhtml
         mv _build/html/* $HOME/output/
@@ -41,6 +42,7 @@ jobs:
       run: |
         GITHUB_SHA=$(git rev-parse HEAD)
         export GITHUB_SHA
+        export CURRENT_VERSION=v1.2.1
         rm -rf _work/venv
         make vhtml
         mv _build/html $HOME/output/v1.2.1
@@ -52,6 +54,7 @@ jobs:
       run: |
         GITHUB_SHA=$(git rev-parse HEAD)
         export GITHUB_SHA
+        export CURRENT_VERSION=v1.2.0
         rm -rf _work/venv
         make vhtml
         mv _build/html $HOME/output/v1.2.0
