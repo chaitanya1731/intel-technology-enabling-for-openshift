@@ -32,6 +32,7 @@ author = 'Intel® Corporation'
 # Reference for sphinx_md : https://pypi.org/project/sphinx-md/
 # --------------------------------- 
 
+from email.policy import default
 from os import getenv
 
 baseBranch = "main"
@@ -51,7 +52,7 @@ sphinx_md_githubDirURL = githubDirURL
 
 # Version displayed in the upper left corner
 # This value is set in the github workflow environment
-commitREF = getenv('GITHUB_SHA_REF')
+commitREF = getenv('GITHUB_SHA_REF', default = "unknown")
 if commitREF.startswith("release-"):
     version = commitREF[len("release-"):].strip()
 else:
@@ -61,13 +62,13 @@ else:
 # Versions list using tags in the lower left corner
 from git import Repo
 repo = Repo( search_parent_directories=True )
-github_repo = (getenv('GITHUB_REPOSITORY') or "intel/intel-technology-enabling-for-openshift") + "/"
+github_repo = "/intel-technology-enabling-for-openshift/"
 release_versions = list()
-release_versions.append(("devel", ""))
+release_versions.append(("devel", github_repo))
 
 tag_versions = reversed([tag.name for tag in repo.tags])
 for rel in tag_versions:
-    release_versions.append((rel, rel))
+    release_versions.append((rel, github_repo + rel))
 
 print("list= ", release_versions)
 # -- General configuration ---------------------------------------------------
