@@ -11,12 +11,6 @@ Intel® Technology Enabling for OpenShift*
    :caption: Contents:
 
    README.md
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Releases:
-   
-   docs/releases.md
    
 .. toctree::
    :maxdepth: 2
